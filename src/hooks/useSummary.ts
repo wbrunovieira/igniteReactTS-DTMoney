@@ -1,5 +1,5 @@
-import { useContext, useMemo } from 'react';
-import { useContextSelector } from 'use-context-selector';
+import { useMemo } from 'react'
+import { useContextSelector } from 'use-context-selector'
 import { TransactionsContext } from '../contexts/TransactionsContexts'
 
 export function useSummary() {
@@ -28,5 +28,5 @@ export function useSummary() {
     )
   }, [transactions])
 
-  return summary;
+  return summary
 }

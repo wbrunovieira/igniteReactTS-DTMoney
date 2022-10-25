@@ -1,25 +1,30 @@
-import * as Dialog from '@radix-ui/react-dialog';
-import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
-import * as z from 'zod';
+import * as Dialog from '@radix-ui/react-dialog'
+import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Controller, useForm } from 'react-hook-form'
+import * as z from 'zod'
 
-import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton } from './styles';
-import { useContext } from 'react';
+import {
+  CloseButton,
+  Content,
+  Overlay,
+  TransactionType,
+  TransactionTypeButton,
+} from './styles'
+
 import { useContextSelector } from 'use-context-selector'
-import { TransactionsContext } from '../../contexts/TransactionsContexts';
+import { TransactionsContext } from '../../contexts/TransactionsContexts'
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
   price: z.number(),
   category: z.string(),
   type: z.enum(['income', 'outcome']),
-});
+})
 
-type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>;
+type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
 
 export function NewTransactionModal() {
-
   const createTransaction = useContextSelector(
     TransactionsContext,
     (context) => {
@@ -32,27 +37,27 @@ export function NewTransactionModal() {
     control,
     handleSubmit,
     reset,
-    formState: { isSubmitting }
+    formState: { isSubmitting },
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
-     defaultValues: {
-      type: 'income'
-    }
+    defaultValues: {
+      type: 'income',
+    },
   })
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
-    const { description, price, category, type } = data;
+    const { description, price, category, type } = data
 
     await createTransaction({
       description,
       price,
       category,
       type,
-    });
+    })
 
-    console.log(data);
+    console.log(data)
 
-    reset();
+    reset()
   }
 
   return (
@@ -68,25 +73,25 @@ export function NewTransactionModal() {
 
         <form onSubmit={handleSubmit(handleCreateNewTransaction)}>
           <input
-           type="text"
-            placeholder="Descrição" 
-            required 
+            type="text"
+            placeholder="Descrição"
+            required
             {...register('description')}
-            />
+          />
 
           <input
-           type="number"
+            type="number"
             placeholder="Preço"
-             required 
-             {...register('price', { valueAsNumber: true })}
-             />
+            required
+            {...register('price', { valueAsNumber: true })}
+          />
 
           <input
-           type="text"
+            type="text"
             placeholder="Categoria"
-             required 
-             {...register('category')}
-             />
+            required
+            {...register('category')}
+          />
 
           <Controller
             control={control}
@@ -116,5 +121,5 @@ export function NewTransactionModal() {
         </form>
       </Content>
     </Dialog.Portal>
-  );
+  )
 }
