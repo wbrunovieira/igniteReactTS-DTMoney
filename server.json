@@ -23,6 +23,14 @@
       "type": "income",
       "createdAt": "2022-10-25T08:19:25.431Z",
       "id": 3
+    },
+    {
+      "description": "Backend project 2",
+      "price": 30000,
+      "category": "venda",
+      "type": "income",
+      "createdAt": "2022-10-25T08:45:36.027Z",
+      "id": 4
     }
   ]
 }
